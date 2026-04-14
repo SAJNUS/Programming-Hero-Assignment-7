@@ -1,37 +1,33 @@
-# 🌿 KeenKeeper — Keep Your Friendships Alive
+# KeenKeeper — Keep Your Friendships Alive
 
-A modern friendship management web app built to help you stay connected with the people who matter most.
+A modern friendship management web app built to help users stay connected with the people who matter most.
 
-## 📌 Project Overview
+## Project Overview
 
-**KeenKeeper** helps users track friendships and interactions over time. You can log quick check-ins (call, text, video), monitor days since last contact, manage relationship goals, and visualize interaction activity through a timeline and analytics dashboard.
+KeenKeeper helps users track friendships and interactions over time. It supports quick check-ins (call, text, video), tracks days since last contact, manages relationship goals, and visualizes activity through a timeline and analytics dashboard.
 
-## 🚀 Live Demo
+## Live Demo
 
-🔗 **Live Link:** https://sajnus.github.io/Programming-Hero-Assignment-7/
+Live Link: https://sajnus.github.io/Programming-Hero-Assignment-7/
 
-## 🧑‍💻 GitHub Repository
+## Technologies Used
 
-📂 **Repository:** https://github.com/SAJNUS/Programming-Hero-Assignment-7.git
+- React.js (Vite)
+- Tailwind CSS
+- React Router DOM
+- Recharts
+- React Hot Toast
 
-## 🛠️ Technologies Used
+## Key Features
 
-- **React.js (Vite)**
-- **Tailwind CSS**
-- **React Router DOM**
-- **Recharts**
-- **React Hot Toast**
+- Friend management (profiles, status tracking, goals)
+- Quick check-in actions (Call, Text, Video) with toast notifications
+- Timeline page with filtering (and optional search)
+- Analytics page with interaction pie chart
+- Responsive UI for mobile, tablet, and desktop
+- Custom 404 page and loading state support
 
-## ✨ Key Features
-
-- 👥 Friend management (profiles, status tracking, goals)
-- ⚡ Quick check-in actions (Call, Text, Video) with toast notifications
-- 🕒 Timeline page with filtering (and optional search)
-- 📊 Analytics page with interaction pie chart
-- 📱 Responsive UI for mobile, tablet, and desktop
-- 🚧 Custom 404 page and loading state support
-
-## 📁 Project Structure
+## Project Structure
 
 ```text
 KeenKeeper/
@@ -55,7 +51,7 @@ KeenKeeper/
 └── tailwind.config.js
 ```
 
-## ⚙️ Installation
+## Installation
 
 1. Clone the repository
 2. Install dependencies
@@ -67,7 +63,3 @@ cd "Assignment 7"
 npm install
 npm run dev
 ```
-
----
-
-💚 KeenKeeper is designed to make meaningful friendships easier to maintain—consistently and intentionally.
