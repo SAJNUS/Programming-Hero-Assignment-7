@@ -49,7 +49,7 @@ export default function FriendDetails() {
 
         addTimelineEntry(buildTimelineEntry(type, friend.name));
         toast.success(
-            `${type.charAt(0).toUpperCase() + type.slice(1)} logged for ${friend.name}`,
+            `${type.charAt(0).toUpperCase() + type.slice(1)} with ${friend.name} added`,
         );
     };
 

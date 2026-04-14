@@ -26,6 +26,7 @@ function getTimestamp(dateValue) {
 
 export default function Timeline() {
     const [selectedType, setSelectedType] = useState("all");
+    const [searchQuery, setSearchQuery] = useState("");
 
     const entries = useMemo(() => readTimelineEntries(), []);
 
@@ -34,30 +35,57 @@ export default function Timeline() {
             (a, b) => getTimestamp(b.date) - getTimestamp(a.date),
         );
 
-        if (selectedType === "all") return sorted;
-        return sorted.filter((entry) => entry.type === selectedType);
-    }, [entries, selectedType]);
+        const byType =
+            selectedType === "all"
+                ? sorted
+                : sorted.filter((entry) => entry.type === selectedType);
+
+        const normalizedQuery = searchQuery.trim().toLowerCase();
+        if (!normalizedQuery) return byType;
+
+        return byType.filter((entry) =>
+            entry.title.toLowerCase().includes(normalizedQuery),
+        );
+    }, [entries, selectedType, searchQuery]);
 
     return (
         <section className="page-shell py-6 sm:py-10">
             <h1 className="page-heading">Timeline</h1>
 
-            <div className="mt-5 max-w-xs">
-                <label htmlFor="timeline-filter" className="sr-only">
-                    Filter timeline
-                </label>
-                <select
-                    id="timeline-filter"
-                    value={selectedType}
-                    onChange={(event) => setSelectedType(event.target.value)}
-                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm outline-none ring-brand-200 transition focus:ring-2"
-                >
-                    {filterOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
+            <div className="mt-5 grid max-w-2xl gap-3 sm:grid-cols-2">
+                <div>
+                    <label htmlFor="timeline-filter" className="sr-only">
+                        Filter timeline
+                    </label>
+                    <select
+                        id="timeline-filter"
+                        value={selectedType}
+                        onChange={(event) =>
+                            setSelectedType(event.target.value)
+                        }
+                        className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm outline-none ring-brand-200 transition focus:ring-2"
+                    >
+                        {filterOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="timeline-search" className="sr-only">
+                        Search timeline
+                    </label>
+                    <input
+                        id="timeline-search"
+                        type="text"
+                        value={searchQuery}
+                        onChange={(event) => setSearchQuery(event.target.value)}
+                        placeholder="Search timeline"
+                        className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm outline-none ring-brand-200 transition focus:ring-2"
+                    />
+                </div>
             </div>
 
             <div className="mt-8 space-y-3">
@@ -68,7 +96,7 @@ export default function Timeline() {
                     </div>
                 ) : filteredEntries.length === 0 ? (
                     <div className="rounded-xl border border-slate-200 bg-white p-6 text-slate-500 shadow-sm">
-                        No {selectedType} entries found.
+                        No matching timeline entries found.
                     </div>
                 ) : (
                     filteredEntries.map((entry, index) => (

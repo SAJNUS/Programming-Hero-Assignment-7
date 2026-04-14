@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import SummaryCard from "../components/SummaryCard";
 import FriendCard from "../components/FriendCard";
 import friends from "../data/friends.json";
@@ -10,6 +11,20 @@ const summaryCards = [
 ];
 
 export default function Home() {
+    const [isLoadingFriends, setIsLoadingFriends] = useState(true);
+    const [friendsData, setFriendsData] = useState([]);
+
+    useEffect(() => {
+        const timeoutId = window.setTimeout(() => {
+            setFriendsData(friends);
+            setIsLoadingFriends(false);
+        }, 1500);
+
+        return () => window.clearTimeout(timeoutId);
+    }, []);
+
+    const skeletonCards = useMemo(() => Array.from({ length: 8 }), []);
+
     return (
         <section className="page-shell py-6 sm:py-10">
             <div className="mx-auto max-w-4xl text-center">
@@ -42,9 +57,21 @@ export default function Home() {
                 </h2>
 
                 <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    {friends.map((friend) => (
-                        <FriendCard key={friend.id} friend={friend} />
-                    ))}
+                    {isLoadingFriends
+                        ? skeletonCards.map((_, index) => (
+                              <div
+                                  key={`friend-skeleton-${index}`}
+                                  className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200/70"
+                              >
+                                  <div className="mx-auto h-14 w-14 animate-pulse rounded-full bg-slate-200" />
+                                  <div className="mx-auto mt-4 h-4 w-24 animate-pulse rounded bg-slate-200" />
+                                  <div className="mx-auto mt-2 h-3 w-16 animate-pulse rounded bg-slate-100" />
+                                  <div className="mx-auto mt-4 h-5 w-20 animate-pulse rounded-full bg-slate-200" />
+                              </div>
+                          ))
+                        : friendsData.map((friend) => (
+                              <FriendCard key={friend.id} friend={friend} />
+                          ))}
                 </div>
             </section>
         </section>
