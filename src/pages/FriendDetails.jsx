@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import friends from "../data/friends.json";
 import { getFriendAvatar } from "../data/friendAvatars";
 import ActionButton from "../components/friend-details/ActionButton";
@@ -7,7 +8,6 @@ import Badge from "../components/friend-details/Badge";
 import QuickCheckInButton from "../components/friend-details/QuickCheckInButton";
 import StatCard from "../components/friend-details/StatCard";
 import StatusBadge from "../components/friend-details/StatusBadge";
-import Toast from "../components/friend-details/Toast";
 import { addTimelineEntry } from "../utils/timelineStorage";
 
 import callIcon from "../../assets/call.png";
@@ -31,19 +31,26 @@ function buildTimelineEntry(type, friendName) {
 
     return {
         date: new Date().toISOString(),
-        );
-    }
+        type,
+        title: `${capitalizedType} with ${friendName}`,
+    };
+}
 
-        const timeoutId = window.setTimeout(() => setToastMessage(""), 2500);
-        return () => window.clearTimeout(timeoutId);
-    }, [toastMessage]);
+export default function FriendDetails() {
+    const { id } = useParams();
+
+    const friend = useMemo(
+        () => friends.find((entry) => entry.id === Number(id)),
+        [id],
+    );
 
     const handleCheckIn = (type) => {
         if (!friend) return;
 
-        const entry = buildTimelineEntry(type, friend.name);
-        addTimelineEntry(entry);
-        setToastMessage(`${type.charAt(0).toUpperCase() + type.slice(1)} logged for ${friend.name}`);
+        addTimelineEntry(buildTimelineEntry(type, friend.name));
+        toast.success(
+            `${type.charAt(0).toUpperCase() + type.slice(1)} logged for ${friend.name}`,
+        );
     };
 
     if (!friend) {
@@ -52,8 +59,20 @@ function buildTimelineEntry(type, friendName) {
                 <div className="rounded-2xl bg-white p-8 text-center shadow-sm ring-1 ring-slate-200/70">
                     <h1 className="text-2xl font-bold text-slate-800">
                         Friend not found
-                    );
-                }
+                    </h1>
+                    <p className="mt-3 text-slate-500">
+                        The profile you’re looking for doesn’t exist.
+                    </p>
+                </div>
+            </section>
+        );
+    }
+
+    return (
+        <section className="page-shell py-8 sm:py-10">
+            <div className="grid gap-5 lg:grid-cols-12 lg:gap-6">
+                <aside className="lg:col-span-4">
+                    <div className="rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-slate-200/70">
                         <img
                             src={getFriendAvatar(friend.picture)}
                             alt={friend.name}
@@ -79,7 +98,10 @@ function buildTimelineEntry(type, friendName) {
                         </p>
 
                         <p className="mt-3 text-sm text-slate-500">
-                            Preferred: <span className="font-medium text-slate-700">{friend.email}</span>
+                            Preferred:{" "}
+                            <span className="font-medium text-slate-700">
+                                {friend.email}
+                            </span>
                         </p>
                     </div>
 
@@ -90,15 +112,21 @@ function buildTimelineEntry(type, friendName) {
                     </div>
                 </aside>
 
-                <div className="lg:col-span-8 space-y-5">
+                <div className="space-y-5 lg:col-span-8">
                     <div className="grid gap-4 md:grid-cols-3">
                         <StatCard
                             value={friend.days_since_contact}
                             label="Days Since Contact"
                         />
-                        <StatCard value={friend.goal_days} label="Goal (Days)" />
                         <StatCard
-                            value={getNextDueDate(friend.days_since_contact, friend.goal_days)}
+                            value={friend.goal_days}
+                            label="Goal (Days)"
+                        />
+                        <StatCard
+                            value={getNextDueDate(
+                                friend.days_since_contact,
+                                friend.goal_days,
+                            )}
                             label="Next Due"
                         />
                     </div>
@@ -110,7 +138,10 @@ function buildTimelineEntry(type, friendName) {
                                     Relationship Goal
                                 </h2>
                                 <p className="mt-3 text-slate-600">
-                                    Connect every <span className="font-semibold text-slate-800">{friend.goal_days} days</span>
+                                    Connect every{" "}
+                                    <span className="font-semibold text-slate-800">
+                                        {friend.goal_days} days
+                                    </span>
                                 </p>
                             </div>
 
