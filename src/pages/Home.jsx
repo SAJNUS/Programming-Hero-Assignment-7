@@ -1,4 +1,6 @@
 import SummaryCard from "../components/SummaryCard";
+import FriendCard from "../components/FriendCard";
+import friends from "../data/friends.json";
 
 const summaryCards = [
     { value: 10, label: "Total Friends" },
@@ -33,6 +35,18 @@ export default function Home() {
                     />
                 ))}
             </div>
+
+            <section className="mt-12 border-t border-slate-200 pt-10">
+                <h2 className="text-lg font-semibold text-slate-800 sm:text-xl">
+                    Your Friends
+                </h2>
+
+                <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    {friends.map((friend) => (
+                        <FriendCard key={friend.id} friend={friend} />
+                    ))}
+                </div>
+            </section>
         </section>
     );
 }
