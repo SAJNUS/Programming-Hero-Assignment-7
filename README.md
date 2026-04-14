@@ -12,7 +12,7 @@ A modern friendship management web app built to help you stay connected with the
 
 ## 🧑‍💻 GitHub Repository
 
-📂 **Repository:** _[Add your GitHub repository link here]_
+📂 **Repository:** https://github.com/SAJNUS/Programming-Hero-Assignment-7.git
 
 ## 🛠️ Technologies Used
 

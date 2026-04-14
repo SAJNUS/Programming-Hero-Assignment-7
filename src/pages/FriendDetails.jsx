@@ -14,18 +14,6 @@ import callIcon from "../../assets/call.png";
 import textIcon from "../../assets/text.png";
 import videoIcon from "../../assets/video.png";
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-});
-
-function getNextDueDate(daysSinceContact, goalDays) {
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + (goalDays - daysSinceContact));
-    return dateFormatter.format(dueDate);
-}
-
 function buildTimelineEntry(type, friendName) {
     const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
 
@@ -118,16 +106,10 @@ export default function FriendDetails() {
                             value={friend.days_since_contact}
                             label="Days Since Contact"
                         />
+                        <StatCard value={friend.goal} label="Goal (Days)" />
                         <StatCard
-                            value={friend.goal_days}
-                            label="Goal (Days)"
-                        />
-                        <StatCard
-                            value={getNextDueDate(
-                                friend.days_since_contact,
-                                friend.goal_days,
-                            )}
-                            label="Next Due"
+                            value={friend.next_due_date}
+                            label="Next Due Date"
                         />
                     </div>
 
@@ -140,7 +122,7 @@ export default function FriendDetails() {
                                 <p className="mt-3 text-slate-600">
                                     Connect every{" "}
                                     <span className="font-semibold text-slate-800">
-                                        {friend.goal_days} days
+                                        {friend.goal} days
                                     </span>
                                 </p>
                             </div>

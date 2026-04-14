@@ -3,88 +3,96 @@
         "id": 1,
         "name": "David Kim",
         "picture": "david-kim.svg",
+        "email": "david.kim@keenkeeper.dev",
         "days_since_contact": 62,
         "status": "almost due",
         "tags": ["WORK"],
-        "goal_days": 30,
         "bio": "Former teammate who always sends thoughtful check-ins.",
-        "email": "david.kim@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-04-21"
     },
     {
         "id": 2,
         "name": "Emma Wilson",
         "picture": "emma-wilson.svg",
+        "email": "emma.wilson@keenkeeper.dev",
         "days_since_contact": 18,
         "status": "overdue",
         "tags": ["FAMILY"],
-        "goal_days": 30,
-        "bio": "Former colleague and a trusted mentor who keeps projects moving.",
-        "email": "emma.wilson@keenkeeper.dev"
+        "bio": "Former teammate who always sends thoughtful check-ins.",
+        "goal": 30,
+        "next_due_date": "2026-04-26"
     },
     {
         "id": 3,
         "name": "Lisa Nakamura",
         "picture": "lisa-nakamura.svg",
+        "email": "lisa.nakamura@keenkeeper.dev",
         "days_since_contact": 27,
         "status": "overdue",
         "tags": ["WORK"],
-        "goal_days": 30,
         "bio": "Design partner with a sharp eye for detail and warm energy.",
-        "email": "lisa.nakamura@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-04-18"
     },
     {
         "id": 4,
         "name": "James Wright",
         "picture": "james-wright.svg",
+        "email": "james.wright@keenkeeper.dev",
         "days_since_contact": 41,
         "status": "overdue",
         "tags": ["HOBBY", "TRAVEL"],
-        "goal_days": 30,
         "bio": "Adventure buddy who is always down for a new weekend plan.",
-        "email": "james.wright@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-04-15"
     },
     {
         "id": 5,
         "name": "Sarah Chen",
         "picture": "sarah-chen.svg",
+        "email": "sarah.chen@keenkeeper.dev",
         "days_since_contact": 24,
         "status": "on-track",
         "tags": ["FAMILY"],
-        "goal_days": 30,
         "bio": "Reliable family contact and your go-to person for life updates.",
-        "email": "sarah.chen@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-04-24"
     },
     {
         "id": 6,
         "name": "Marcus Johnson",
         "picture": "marcus-johnson.svg",
+        "email": "marcus.johnson@keenkeeper.dev",
         "days_since_contact": 13,
         "status": "on-track",
         "tags": ["WORK"],
-        "goal_days": 30,
         "bio": "Calm collaborator who keeps the team grounded and focused.",
-        "email": "marcus.johnson@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-05-01"
     },
     {
         "id": 7,
         "name": "Olivia Martinez",
         "picture": "olivia-martinez.svg",
+        "email": "olivia.martinez@keenkeeper.dev",
         "days_since_contact": 29,
         "status": "almost due",
         "tags": ["HOBBY"],
-        "goal_days": 30,
         "bio": "Creative friend who always shares inspiring ideas and playlists.",
-        "email": "olivia.martinez@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-04-16"
     },
     {
         "id": 8,
         "name": "Ryan O'Brien",
         "picture": "ryan-obrien.svg",
+        "email": "ryan.obrien@keenkeeper.dev",
         "days_since_contact": 8,
         "status": "on-track",
         "tags": ["TRAVEL"],
-        "goal_days": 30,
         "bio": "Travel buddy with a great sense of direction and a bigger sense of humor.",
-        "email": "ryan.obrien@keenkeeper.dev"
+        "goal": 30,
+        "next_due_date": "2026-05-06"
     }
 ]
