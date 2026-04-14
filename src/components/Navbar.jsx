@@ -1,15 +1,18 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import homeIcon from "../../assets/icons/home.svg";
+import timelineIcon from "../../assets/icons/timeline.svg";
+import statsIcon from "../../assets/icons/stats.svg";
 
 const navItems = [
-    { label: "Home", to: "/" },
-    { label: "Timeline", to: "/timeline" },
-    { label: "Stats", to: "/stats" },
+    { label: "Home", to: "/", icon: homeIcon },
+    { label: "Timeline", to: "/timeline", icon: timelineIcon },
+    { label: "Stats", to: "/stats", icon: statsIcon },
 ];
 
 const linkClasses = ({ isActive }) =>
     [
-        "inline-flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200",
+        "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200",
         isActive
             ? "bg-brand-700 text-white shadow-sm"
             : "text-slate-600 hover:bg-brand-50 hover:text-brand-700",
@@ -38,7 +41,21 @@ export default function Navbar() {
                             className={linkClasses}
                             end={item.to === "/"}
                         >
-                            {item.label}
+                            {({ isActive }) => (
+                                <>
+                                    <img
+                                        src={item.icon}
+                                        alt=""
+                                        aria-hidden="true"
+                                        className={`h-4 w-4 shrink-0 ${
+                                            isActive
+                                                ? "brightness-0 invert"
+                                                : "opacity-70"
+                                        }`}
+                                    />
+                                    {item.label}
+                                </>
+                            )}
                         </NavLink>
                     ))}
                 </nav>

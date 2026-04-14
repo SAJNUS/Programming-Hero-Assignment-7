@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import SummaryCard from "../components/SummaryCard";
 import FriendCard from "../components/FriendCard";
 import friends from "../data/friends.json";
+import addFriendIcon from "../../assets/icons/add-friend.svg";
 
 const summaryCards = [
     { value: 10, label: "Total Friends" },
@@ -36,8 +37,14 @@ export default function Home() {
                     and nurture the relationships that matter most.
                 </p>
 
-                <button className="mt-6 inline-flex items-center rounded-md bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-brand-800">
-                    + Add a Friend
+                <button className="mt-6 inline-flex items-center gap-2 rounded-md bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-brand-800">
+                    <img
+                        src={addFriendIcon}
+                        alt=""
+                        aria-hidden="true"
+                        className="h-4 w-4 shrink-0 brightness-0 invert"
+                    />
+                    <span>+ Add a Friend</span>
                 </button>
             </div>
 
