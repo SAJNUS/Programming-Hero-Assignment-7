@@ -8,7 +8,7 @@ A modern friendship management web app built to help you stay connected with the
 
 ## 🚀 Live Demo
 
-🔗 **Live Link:** _[Add your deployed app link here]_
+🔗 **Live Link:** https://sajnus.github.io/Programming-Hero-Assignment-7/
 
 ## 🧑‍💻 GitHub Repository
 
