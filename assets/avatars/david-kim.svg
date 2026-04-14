@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="David Kim avatar">
+  <rect width="160" height="160" rx="80" fill="#F3F4F6"/>
+  <circle cx="80" cy="58" r="30" fill="#2D6A4F"/>
+  <circle cx="80" cy="150" r="58" fill="#D8F3DC"/>
+  <text x="80" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#234A3B">DK</text>
+</svg>

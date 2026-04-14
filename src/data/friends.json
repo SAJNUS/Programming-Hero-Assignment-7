@@ -2,65 +2,89 @@
     {
         "id": 1,
         "name": "David Kim",
-        "picture": "https://i.pravatar.cc/160?img=12",
+        "picture": "david-kim.svg",
         "days_since_contact": 62,
         "status": "almost due",
-        "tags": ["WORK"]
+        "tags": ["WORK"],
+        "goal_days": 30,
+        "bio": "Former teammate who always sends thoughtful check-ins.",
+        "email": "david.kim@keenkeeper.dev"
     },
     {
         "id": 2,
         "name": "Emma Wilson",
-        "picture": "https://i.pravatar.cc/160?img=32",
+        "picture": "emma-wilson.svg",
         "days_since_contact": 18,
         "status": "overdue",
-        "tags": ["FAMILY"]
+        "tags": ["FAMILY"],
+        "goal_days": 30,
+        "bio": "Former colleague and a trusted mentor who keeps projects moving.",
+        "email": "emma.wilson@keenkeeper.dev"
     },
     {
         "id": 3,
         "name": "Lisa Nakamura",
-        "picture": "https://i.pravatar.cc/160?img=47",
+        "picture": "lisa-nakamura.svg",
         "days_since_contact": 27,
         "status": "overdue",
-        "tags": ["WORK"]
+        "tags": ["WORK"],
+        "goal_days": 30,
+        "bio": "Design partner with a sharp eye for detail and warm energy.",
+        "email": "lisa.nakamura@keenkeeper.dev"
     },
     {
         "id": 4,
         "name": "James Wright",
-        "picture": "https://i.pravatar.cc/160?img=18",
+        "picture": "james-wright.svg",
         "days_since_contact": 41,
         "status": "overdue",
-        "tags": ["HOBBY", "TRAVEL"]
+        "tags": ["HOBBY", "TRAVEL"],
+        "goal_days": 30,
+        "bio": "Adventure buddy who is always down for a new weekend plan.",
+        "email": "james.wright@keenkeeper.dev"
     },
     {
         "id": 5,
         "name": "Sarah Chen",
-        "picture": "https://i.pravatar.cc/160?img=5",
+        "picture": "sarah-chen.svg",
         "days_since_contact": 24,
         "status": "on-track",
-        "tags": ["FAMILY"]
+        "tags": ["FAMILY"],
+        "goal_days": 30,
+        "bio": "Reliable family contact and your go-to person for life updates.",
+        "email": "sarah.chen@keenkeeper.dev"
     },
     {
         "id": 6,
         "name": "Marcus Johnson",
-        "picture": "https://i.pravatar.cc/160?img=8",
+        "picture": "marcus-johnson.svg",
         "days_since_contact": 13,
         "status": "on-track",
-        "tags": ["WORK"]
+        "tags": ["WORK"],
+        "goal_days": 30,
+        "bio": "Calm collaborator who keeps the team grounded and focused.",
+        "email": "marcus.johnson@keenkeeper.dev"
     },
     {
         "id": 7,
         "name": "Olivia Martinez",
-        "picture": "https://i.pravatar.cc/160?img=44",
+        "picture": "olivia-martinez.svg",
         "days_since_contact": 29,
         "status": "almost due",
-        "tags": ["HOBBY"]
+        "tags": ["HOBBY"],
+        "goal_days": 30,
+        "bio": "Creative friend who always shares inspiring ideas and playlists.",
+        "email": "olivia.martinez@keenkeeper.dev"
     },
     {
         "id": 8,
         "name": "Ryan O'Brien",
-        "picture": "https://i.pravatar.cc/160?img=22",
+        "picture": "ryan-obrien.svg",
         "days_since_contact": 8,
         "status": "on-track",
-        "tags": ["TRAVEL"]
+        "tags": ["TRAVEL"],
+        "goal_days": 30,
+        "bio": "Travel buddy with a great sense of direction and a bigger sense of humor.",
+        "email": "ryan.obrien@keenkeeper.dev"
     }
 ]

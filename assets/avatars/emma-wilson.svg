@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Emma Wilson avatar">
+  <rect width="160" height="160" rx="80" fill="#F8FAFC"/>
+  <circle cx="80" cy="58" r="30" fill="#8B5CF6"/>
+  <circle cx="80" cy="150" r="58" fill="#EDE9FE"/>
+  <text x="80" y="118" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#5B21B6">EW</text>
+</svg>
