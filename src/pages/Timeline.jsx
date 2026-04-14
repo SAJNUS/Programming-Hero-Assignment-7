@@ -1,18 +1,64 @@
-import { useMemo } from "react";
-import {
-    readTimelineEntries,
-    formatTimelineDate,
-} from "../utils/timelineStorage";
+import { useMemo, useState } from "react";
+import TimelineItem from "../components/TimelineItem";
+import { readTimelineEntries } from "../utils/timelineStorage";
+
+import callIcon from "../../assets/call.png";
+import textIcon from "../../assets/text.png";
+import videoIcon from "../../assets/video.png";
+
+const filterOptions = [
+    { value: "all", label: "All" },
+    { value: "call", label: "Call" },
+    { value: "text", label: "Text" },
+    { value: "video", label: "Video" },
+];
+
+const typeIcons = {
+    call: callIcon,
+    text: textIcon,
+    video: videoIcon,
+};
+
+function getTimestamp(dateValue) {
+    const timestamp = new Date(dateValue).getTime();
+    return Number.isNaN(timestamp) ? 0 : timestamp;
+}
 
 export default function Timeline() {
+    const [selectedType, setSelectedType] = useState("all");
+
     const entries = useMemo(() => readTimelineEntries(), []);
 
+    const filteredEntries = useMemo(() => {
+        const sorted = [...entries].sort(
+            (a, b) => getTimestamp(b.date) - getTimestamp(a.date),
+        );
+
+        if (selectedType === "all") return sorted;
+        return sorted.filter((entry) => entry.type === selectedType);
+    }, [entries, selectedType]);
+
     return (
-        <section className="page-shell">
+        <section className="page-shell py-6 sm:py-10">
             <h1 className="page-heading">Timeline</h1>
-            <p className="mt-3 max-w-2xl text-slate-500">
-                Recent check-ins are saved here.
-            </p>
+
+            <div className="mt-5 max-w-xs">
+                <label htmlFor="timeline-filter" className="sr-only">
+                    Filter timeline
+                </label>
+                <select
+                    id="timeline-filter"
+                    value={selectedType}
+                    onChange={(event) => setSelectedType(event.target.value)}
+                    className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm outline-none ring-brand-200 transition focus:ring-2"
+                >
+                    {filterOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             <div className="mt-8 space-y-3">
                 {entries.length === 0 ? (
@@ -20,22 +66,17 @@ export default function Timeline() {
                         No timeline entries yet. Try a quick check-in from a
                         friend profile.
                     </div>
+                ) : filteredEntries.length === 0 ? (
+                    <div className="rounded-xl border border-slate-200 bg-white p-6 text-slate-500 shadow-sm">
+                        No {selectedType} entries found.
+                    </div>
                 ) : (
-                    entries.map((entry, index) => (
-                        <div
-                            key={`${entry.title}-${index}`}
-                            className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-                        >
-                            <div className="text-sm font-semibold capitalize text-brand-700">
-                                {entry.type}
-                            </div>
-                            <div className="mt-1 text-base font-medium text-slate-800">
-                                {entry.title}
-                            </div>
-                            <div className="mt-1 text-sm text-slate-500">
-                                {formatTimelineDate(entry.date)}
-                            </div>
-                        </div>
+                    filteredEntries.map((entry, index) => (
+                        <TimelineItem
+                            key={`${entry.title}-${entry.date}-${index}`}
+                            entry={entry}
+                            icon={typeIcons[entry.type] ?? callIcon}
+                        />
                     ))
                 )}
             </div>
