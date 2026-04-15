@@ -8,6 +8,8 @@ KeenKeeper helps users track friendships and interactions over time. It supports
 
 ## Live Demo
 
+Live Link: https://keen-keeper-murex.vercel.app/
+
 ## Technologies Used
 
 - React.js (Vite)
