@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import friends from "../data/friends.json";
 import {
@@ -11,24 +11,44 @@ import Badge from "../components/friend-details/Badge";
 import QuickCheckInButton from "../components/friend-details/QuickCheckInButton";
 import StatCard from "../components/friend-details/StatCard";
 import StatusBadge from "../components/friend-details/StatusBadge";
-import { addTimelineEntry } from "../utils/timelineStorage";
+import {
+    addTimelineEntry,
+    formatTimelineDate,
+    readTimelineEntries,
+} from "../utils/timelineStorage";
 
 import callIcon from "../../assets/call.png";
 import textIcon from "../../assets/text.png";
 import videoIcon from "../../assets/video.png";
 
-function buildTimelineEntry(type, friendName) {
+const typeIcons = {
+    call: callIcon,
+    text: textIcon,
+    video: videoIcon,
+};
+
+function buildTimelineEntry(type, friend) {
     const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
 
     return {
         date: new Date().toISOString(),
         type,
-        title: `${capitalizedType} with ${friendName}`,
+        friendId: friend.id,
+        friendName: friend.name,
+        title: `${capitalizedType} with ${friend.name}`,
     };
+}
+
+function getTimestamp(dateValue) {
+    const timestamp = new Date(dateValue).getTime();
+    return Number.isNaN(timestamp) ? 0 : timestamp;
 }
 
 export default function FriendDetails() {
     const { id } = useParams();
+    const [timelineEntries, setTimelineEntries] = useState(() =>
+        readTimelineEntries(),
+    );
 
     const friend = useMemo(
         () => friends.find((entry) => entry.id === Number(id)),
@@ -38,11 +58,32 @@ export default function FriendDetails() {
     const handleCheckIn = (type) => {
         if (!friend) return;
 
-        addTimelineEntry(buildTimelineEntry(type, friend.name));
+        const nextEntries = addTimelineEntry(buildTimelineEntry(type, friend));
+        setTimelineEntries(nextEntries);
         toast.success(
             `${type.charAt(0).toUpperCase() + type.slice(1)} with ${friend.name} added`,
         );
     };
+
+    const recentInteractions = useMemo(() => {
+        if (!friend) return [];
+
+        const normalizedFriendName = friend.name.toLowerCase();
+
+        return timelineEntries
+            .filter((entry) => {
+                if (entry.friendId === friend.id) return true;
+                if (entry.friendName?.toLowerCase() === normalizedFriendName) {
+                    return true;
+                }
+
+                return entry.title
+                    ?.toLowerCase()
+                    .includes(`with ${normalizedFriendName}`);
+            })
+            .sort((a, b) => getTimestamp(b.date) - getTimestamp(a.date))
+            .slice(0, 4);
+    }, [friend, timelineEntries]);
 
     if (!friend) {
         return (
@@ -166,6 +207,62 @@ export default function FriendDetails() {
                                 onClick={() => handleCheckIn("video")}
                             />
                         </div>
+                    </div>
+
+                    <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/70">
+                        <div className="flex items-center justify-between gap-3">
+                            <h2 className="text-lg font-semibold text-slate-800">
+                                Recent Interactions
+                            </h2>
+
+                            <Link
+                                to="/timeline"
+                                className="text-sm font-medium text-brand-700 hover:text-brand-800"
+                            >
+                                Full History
+                            </Link>
+                        </div>
+
+                        {recentInteractions.length === 0 ? (
+                            <p className="mt-4 rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-sm text-slate-500">
+                                No interactions yet for {friend.name}. Try a
+                                quick check-in above.
+                            </p>
+                        ) : (
+                            <div className="mt-4 divide-y divide-slate-100 rounded-xl border border-slate-200 bg-white">
+                                {recentInteractions.map((entry, index) => (
+                                    <article
+                                        key={`${entry.title}-${entry.date}-${index}`}
+                                        className="flex items-start gap-3 px-4 py-3"
+                                    >
+                                        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100">
+                                            <img
+                                                src={
+                                                    typeIcons[entry.type] ??
+                                                    callIcon
+                                                }
+                                                alt=""
+                                                aria-hidden="true"
+                                                className="h-4 w-4"
+                                            />
+                                        </div>
+
+                                        <div className="min-w-0 flex-1">
+                                            <p className="text-sm font-semibold capitalize text-slate-800">
+                                                {entry.type}
+                                            </p>
+                                            <p className="truncate text-xs text-slate-500">
+                                                {entry.title}
+                                            </p>
+                                        </div>
+
+                                        <p className="shrink-0 text-xs text-slate-500">
+                                            {formatTimelineDate(entry.date)}
+                                        </p>
+                                    </article>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
