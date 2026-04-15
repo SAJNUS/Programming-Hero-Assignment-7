@@ -8,8 +8,6 @@ KeenKeeper helps users track friendships and interactions over time. It supports
 
 ## Live Demo
 
-Live Link: https://sajnus.github.io/Programming-Hero-Assignment-7/
-
 ## Technologies Used
 
 - React.js (Vite)
