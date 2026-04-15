@@ -7,7 +7,7 @@ import oliviaMartinez from "../../assets/avatars/olivia-martinez.svg";
 import ryanObrien from "../../assets/avatars/ryan-obrien.svg";
 import sarahChen from "../../assets/avatars/sarah-chen.svg";
 
-const avatarByFile = {
+const avatarFallbackByFile = {
     "david-kim.svg": davidKim,
     "emma-wilson.svg": emmaWilson,
     "james-wright.svg": jamesWright,
@@ -19,5 +19,11 @@ const avatarByFile = {
 };
 
 export function getFriendAvatar(picture) {
-    return avatarByFile[picture] ?? emmaWilson;
+    const seed = picture?.replace(/\.svg$/i, "") ?? "friend";
+
+    return `https://i.pravatar.cc/160?u=keenkeeper-${seed}`;
+}
+
+export function getFriendAvatarFallback(picture) {
+    return avatarFallbackByFile[picture] ?? emmaWilson;
 }

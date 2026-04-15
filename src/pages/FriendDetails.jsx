@@ -2,7 +2,10 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import friends from "../data/friends.json";
-import { getFriendAvatar } from "../data/friendAvatars";
+import {
+    getFriendAvatar,
+    getFriendAvatarFallback,
+} from "../data/friendAvatars";
 import ActionButton from "../components/friend-details/ActionButton";
 import Badge from "../components/friend-details/Badge";
 import QuickCheckInButton from "../components/friend-details/QuickCheckInButton";
@@ -65,6 +68,11 @@ export default function FriendDetails() {
                             src={getFriendAvatar(friend.picture)}
                             alt={friend.name}
                             className="mx-auto h-20 w-20 rounded-full object-cover ring-4 ring-slate-100"
+                            onError={(event) => {
+                                event.currentTarget.onerror = null;
+                                event.currentTarget.src =
+                                    getFriendAvatarFallback(friend.picture);
+                            }}
                         />
 
                         <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-800">

@@ -2,18 +2,42 @@ import { useEffect, useMemo, useState } from "react";
 import SummaryCard from "../components/SummaryCard";
 import FriendCard from "../components/FriendCard";
 import friends from "../data/friends.json";
-import addFriendIcon from "../../assets/icons/add-friend.svg";
-
-const summaryCards = [
-    { value: 10, label: "Total Friends" },
-    { value: 3, label: "On Track" },
-    { value: 6, label: "Need Attention" },
-    { value: 12, label: "Interactions This Month" },
-];
+import { readTimelineEntries } from "../utils/timelineStorage";
 
 export default function Home() {
     const [isLoadingFriends, setIsLoadingFriends] = useState(true);
     const [friendsData, setFriendsData] = useState([]);
+
+    const timelineEntries = useMemo(() => readTimelineEntries(), []);
+
+    const summaryCards = useMemo(
+        () => [
+            { value: friends.length, label: "Total Friends" },
+            {
+                value: friends.filter((friend) => friend.status === "on-track")
+                    .length,
+                label: "On Track",
+            },
+            {
+                value: friends.filter((friend) => friend.status !== "on-track")
+                    .length,
+                label: "Need Attention",
+            },
+            {
+                value: timelineEntries.filter((entry) => {
+                    const entryDate = new Date(entry.date);
+                    const now = new Date();
+
+                    return (
+                        entryDate.getMonth() === now.getMonth() &&
+                        entryDate.getFullYear() === now.getFullYear()
+                    );
+                }).length,
+                label: "Interactions This Month",
+            },
+        ],
+        [timelineEntries],
+    );
 
     useEffect(() => {
         const timeoutId = window.setTimeout(() => {
@@ -38,13 +62,7 @@ export default function Home() {
                 </p>
 
                 <button className="mt-6 inline-flex items-center gap-2 rounded-md bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-brand-800">
-                    <img
-                        src={addFriendIcon}
-                        alt=""
-                        aria-hidden="true"
-                        className="h-4 w-4 shrink-0 brightness-0 invert"
-                    />
-                    <span>+ Add a Friend</span>
+                    + Add a Friend
                 </button>
             </div>
 

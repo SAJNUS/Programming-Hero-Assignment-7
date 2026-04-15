@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { getFriendAvatar } from "../data/friendAvatars";
+import {
+    getFriendAvatar,
+    getFriendAvatarFallback,
+} from "../data/friendAvatars";
 
 const statusStyles = {
     overdue: "bg-red-50 text-red-500",
@@ -27,6 +30,12 @@ export default function FriendCard({ friend }) {
                 src={getFriendAvatar(friend.picture)}
                 alt={friend.name}
                 className="mx-auto h-14 w-14 rounded-full object-cover ring-4 ring-slate-100"
+                onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = getFriendAvatarFallback(
+                        friend.picture,
+                    );
+                }}
             />
 
             <h3 className="mt-4 text-base font-semibold text-slate-800">
